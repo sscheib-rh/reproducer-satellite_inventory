@@ -5,11 +5,10 @@ use_vars_plugins: true
 use_extra_vars: true
 
 groups:
-  cnd_rhel_8: >-
-    ansible_distribution | default('') == 'RedHat'
-    and ansible_distribution_major_version | default('')== '8'
+  cnd_custom_var: 'custom_host_variable is defined'
 
 keyed_groups:
+  # create a group per domain
   - prefix: 'cnd'
     key: >-
       (
@@ -21,6 +20,23 @@ keyed_groups:
         reject('match', inventory_hostname_short) |
         join('_'),
         'no_fqdn'
+      )
+
+  # create a group per CCV
+  - prefix: 'cnd'
+    key: >-
+      (
+        foreman_content_attributes.content_view.name | default('') |
+        ansible.builtin.split('-') |
+        reject('match', 'ccv') |
+        length > 1
+      ) | ansible.builtin.ternary(
+        (
+          foreman_content_attributes.content_view.name | default('') |
+          ansible.builtin.split('-') |
+          reject('match', 'ccv')
+        )[0] | default(''),
+        'no_composite_content_view'
       )
 
 ...
