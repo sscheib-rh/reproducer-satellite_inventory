@@ -1,3 +1,5 @@
 ---
 custom_host_variable: 'this is a variable from host_vars for {{ inventory_hostname }}'
+ansible_distribution: 'RedHat'
+ansible_distribution_major_version: 8
 ...
