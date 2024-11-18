@@ -3,7 +3,23 @@
   gather_facts: false
 
   tasks:
-    - name: 'Show all available variables'
+    - name: 'Show variable_in_group_vars_all'
       ansible.builtin.debug:
-        var: 'vars'
+        var: 'variable_in_group_vars_all'
+
+    - name: 'Show variable_in_host_vars_all'
+      ansible.builtin.debug:
+        var: 'variable_in_host_vars_all'
+
+    - name: 'Show custom_group_variable'
+      ansible.builtin.debug:
+        var: 'custom_group_variable'
+
+    - name: 'Show custom_host_variable'
+      ansible.builtin.debug:
+        var: 'custom_host_variable'
+
+    - name: 'Show groups'
+      ansible.builtin.debug:
+        var: 'groups'
 ...
