@@ -1,0 +1,9 @@
+---
+- hosts: 'all'
+  gather_facts: false
+
+  tasks:
+    - name: 'Show all available variables'
+      ansible.builtin.debug:
+        var: 'vars'
+...
